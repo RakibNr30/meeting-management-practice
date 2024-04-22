@@ -23,6 +23,9 @@ public class Meeting {
 
     private List<Long> userIds;
 
+    @Transient
+    private List<User> users;
+
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;

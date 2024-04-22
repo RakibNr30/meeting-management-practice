@@ -1,15 +1,13 @@
 package com.dsi.meeting.controller;
 
 import com.dsi.meeting.dto.UserDto;
+import com.dsi.meeting.entity.Meeting;
 import com.dsi.meeting.entity.User;
 import com.dsi.meeting.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -40,6 +38,24 @@ public class UserController {
             User user = new User();
             user.setName(userStoreDto.getName());
             this.userRepository.save(user);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+
+        return "redirect:/";
+    }
+
+    @PostMapping("/{id}/destroy")
+    public String destroy(@PathVariable Long id) {
+
+        try {
+            User user = userRepository.findById(id).orElse(null);
+
+            if (user == null) {
+                return "redirect:/";
+            }
+
+            this.userRepository.deleteById(id);
         } catch (Exception e) {
             log.error(e.getMessage());
         }

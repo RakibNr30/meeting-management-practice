@@ -32,27 +32,36 @@
                         <tr>
                             <th>ID</th>
                             <th>TITLE</th>
-                            <th>USER ID(S)</th>
+                            <th>INVITED USER(S)</th>
                             <th>CREATION TIME</th>
                             <th>ACTIONS</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="meeting : ${meetings}">
+                        <tr th:if="${meetings.size() > 0}" th:each="meeting : ${meetings}">
                             <td th:text="${meeting.id}"></td>
                             <td th:text="${meeting.title}"></td>
-                            <td th:text="${meeting.userIds}"></td>
+                            <td>
+                                <th:block th:each="user, loop : ${meeting.users}">
+                                    <span th:text="${user.name + (loop.count < loop.size ? ', ' : '')}"></span>
+                                </th:block>
+                            </td>
                             <td th:text="${meeting.createdAt}"></td>
                             <td>
-                                <div class="btn-group">
+                                <div class="d-flex align-items-center justify-content-center">
                                     <a th:href="@{/meeting/{id}/edit(id=${meeting.id})}" class="btn btn-sm btn-outline-primary">
                                         <i class="fas fa-pencil-alt"></i>
                                     </a>
-                                    <button class="btn btn-sm btn-outline-danger">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
+                                    <form th:action="@{/meeting/{id}/destroy(id=${meeting.id})}" th:method="post">
+                                        <button class="btn btn-sm btn-outline-danger ms-1">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
                                 </div>
                             </td>
+                        </tr>
+                        <tr th:unless="${meetings.size() > 0}">
+                            <td colspan="5">No meeting found!</td>
                         </tr>
                         </tbody>
                     </table>

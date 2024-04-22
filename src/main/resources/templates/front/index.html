@@ -25,17 +25,22 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="user : ${users}">
+                        <tr th:if="${users.size() > 0}" th:each="user : ${users}">
                             <td th:text="${user.id}"></td>
                             <td th:text="${user.name}"></td>
                             <td th:text="${user.createdAt}"></td>
                             <td>
                                 <div class="btn-group">
-                                    <button class="btn btn-sm btn-danger">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
+                                    <form th:action="@{/{id}/destroy(id=${user.id})}" th:method="post">
+                                        <button  class="btn btn-sm btn-danger">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button >
+                                    </form>
                                 </div>
                             </td>
+                        </tr>
+                        <tr th:unless="${users.size() > 0}">
+                            <td colspan="5">No user found!</td>
                         </tr>
                         </tbody>
                     </table>
