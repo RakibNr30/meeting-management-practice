@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      th:replace="layouts/front :: layout(content = ~{::section}, title = 'User', menu = 'user')">
+<body>
+<section>
+    <div class="meeting-area">
+        <div class="row">
+            <div class="col-12 mb-3">
+                <form th:action="@{/store}" method="POST">
+                    <div class="input-group">
+                        <input id="name" th:name="name" class="form-control" type="text" placeholder="Enter name">
+                        <button class="btn btn-primary">Add New User</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-12 mb-3">
+                <div class="table-responsive">
+                    <table class="table table-striped text-center">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>NAME</th>
+                            <th>CREATION TIME</th>
+                            <th>ACTIONS</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="user : ${users}">
+                            <td th:text="${user.id}"></td>
+                            <td th:text="${user.name}"></td>
+                            <td th:text="${user.createdAt}"></td>
+                            <td>
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-danger">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

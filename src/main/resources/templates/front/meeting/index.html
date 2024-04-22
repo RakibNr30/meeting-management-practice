@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      th:replace="layouts/front :: layout(content = ~{::section}, title = 'Meeting', menu = 'meeting')">
+<body>
+<section>
+    <div class="meeting-area">
+        <div class="row">
+            <div class="col-12 mb-3">
+                <form th:action="@{/meeting/store}" method="POST">
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <label class="mb-1" for="title">Title</label>
+                            <input id="title" th:name="title" class="form-control" type="text" placeholder="Enter title">
+                       </div>
+                        <div class="col-12 mb-3">
+                            <label class="mb-1" for="userIds">Select User(s)</label>
+                            <select id="userIds" name="userIds[]" class="form-select select2" data-placeholder="Choose User(s)" multiple>
+                                <option></option>
+                                <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name}"></option>
+                            </select>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <button class="btn btn-primary float-end">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-12 mb-3">
+                <div class="table-responsive">
+                    <table class="table table-striped text-center">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>TITLE</th>
+                            <th>USER ID(S)</th>
+                            <th>CREATION TIME</th>
+                            <th>ACTIONS</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="meeting : ${meetings}">
+                            <td th:text="${meeting.id}"></td>
+                            <td th:text="${meeting.title}"></td>
+                            <td th:text="${meeting.userIds}"></td>
+                            <td th:text="${meeting.createdAt}"></td>
+                            <td>
+                                <div class="btn-group">
+                                    <a th:href="@{/meeting/{id}/edit(id=${meeting.id})}" class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
+                                    <button class="btn btn-sm btn-outline-danger">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

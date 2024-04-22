@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_meetings_table
+      author: Abdur Rakib
+      changes:
+        - createTable:
+            tableName: meetings
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: meetings_pkey
+              - column:
+                  name: title
+                  type: VARCHAR(255)
+              - column:
+                  name: user_ids
+                  type: INTEGER[]
+              - column:
+                  name: created_at
+                  type: TIMESTAMP WITHOUT TIME ZONE
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP WITHOUT TIME ZONE
+        - addAutoIncrement:
+              tableName: meetings
+              columnName: id
+              generationType: IDENTITY
+

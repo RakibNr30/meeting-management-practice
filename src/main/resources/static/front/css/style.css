@@ -1,0 +1,32 @@
+.meeting-area {
+    padding: 2rem 1rem;
+    max-height: calc(100vh - 56px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+.todo-link {
+    text-decoration: none;
+}
+.todo-link:hover {
+    background: #dcdada;
+}
+.todo-card h5 {
+    color: #000;
+}
+.todo-content {
+    height: 48px;
+    color: #000000;
+    overflow-y: auto;
+    margin: 0;
+}
+.todo-content::-webkit-scrollbar {
+    display: none;
+}
+.todo-toggle {
+    cursor: pointer;
+    font-size: 20px;
+}
+.notifier-toast {
+    position: fixed;
+    z-index: 1;
+}

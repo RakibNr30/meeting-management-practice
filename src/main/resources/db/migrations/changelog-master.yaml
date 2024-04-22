@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: classpath:db/migrations/20240422_000001_create_users_table.yaml
+      relativeToChangelogFile: false
+  - include:
+      file: classpath:db/migrations/20240422_000002_create_meetings_table.yaml
+      relativeToChangelogFile: false
