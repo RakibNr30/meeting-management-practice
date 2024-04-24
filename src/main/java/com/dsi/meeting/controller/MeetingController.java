@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
@@ -30,6 +31,10 @@ public class MeetingController {
 
         List<User> users = userRepository.findAll();
         List<Meeting> meetings = meetingRepository.findAll();
+
+        for(Meeting meeting : meetings) {
+            meeting.setUsers(userRepository.findAllById(meeting.getUserIds()));
+        }
 
         model.addAttribute("users", users);
         model.addAttribute("meetings", meetings);
@@ -79,14 +84,14 @@ public class MeetingController {
         }
 
         try {
-            meeting.setTitle(meeting.getTitle());
-            meeting.setUserIds(meeting.getUserIds());
+            meeting.setTitle(meetingDto.getTitle());
+            meeting.setUserIds(meetingDto.getUserIds());
             this.meetingRepository.save(meeting);
         } catch (Exception e) {
             log.error(e.getMessage());
         }
 
-        return "redirect:/meeting";
+        return "redirect:/meeting/" + id + "/edit";
     }
 
     @PostMapping("/{id}/destroy")
