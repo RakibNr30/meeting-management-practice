@@ -58,6 +58,7 @@
     </dependencies>
 
     <build>
+        <finalName>meeting-management-application</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
